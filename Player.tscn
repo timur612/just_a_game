@@ -1,0 +1,69 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://assets/Player/player.png" type="Texture" id=1]
+[ext_resource path="res://Player.gd" type="Script" id=2]
+[ext_resource path="res://assets/Player/Walking/player_walking21.png" type="Texture" id=3]
+[ext_resource path="res://assets/Player/Walking/player_walking20.png" type="Texture" id=4]
+[ext_resource path="res://assets/Player/Walking/player_walking22.png" type="Texture" id=5]
+[ext_resource path="res://assets/Player/Walking/player_walking24.png" type="Texture" id=6]
+[ext_resource path="res://assets/Player/Walking/player_walking23.png" type="Texture" id=7]
+[ext_resource path="res://assets/backround_2.png" type="Texture" id=8]
+[ext_resource path="res://assets/Player/jump/player_jump3.png" type="Texture" id=11]
+[ext_resource path="res://assets/Player/jump/player_jump4.png" type="Texture" id=12]
+[ext_resource path="res://assets/Player/jump/player_jump2.png" type="Texture" id=14]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 16.3676
+height = 38.1848
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 14 ) ],
+"loop": false,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[node name="Player" type="KinematicBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 1.88988, 0 )
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 2 )
+animation = "walk"
+frame = 4
+playing = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 510, 235 )
+
+[node name="backround_2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 256.383, 119.592 )
+texture = ExtResource( 8 )
